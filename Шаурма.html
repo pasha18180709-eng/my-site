@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Шаурма Хаус — свіжа шаурма щодня</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFBF0; --surface:#FFFFFF; --ink:#2B0F2E; --muted:#6E5A70; --line:#EADFCB;
+  --sun:#FFC93C; --sun-ink:#2B0F2E; --berry:#B3123B; --mint:#2E9B6A;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#1E0B22;--surface:#2E1434;--ink:#FFF1D6;--muted:#C9B3C9;--line:#4A2A50;--berry:#FF5C84;--mint:#5FD3A0;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#1E0B22;--surface:#2E1434;--ink:#FFF1D6;--muted:#C9B3C9;--line:#4A2A50;--berry:#FF5C84;--mint:#5FD3A0;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 Manrope,system-ui,sans-serif}
+h1,h2,h3{font-family:Unbounded,Manrope,sans-serif;line-height:1.1;margin:0}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+section{padding:72px 0}
+h2{font-size:clamp(26px,4.5vw,38px);margin-bottom:12px}
+.lead{color:var(--muted);max-width:56ch;margin:0 0 36px}
+:focus-visible{outline:3px solid var(--berry);outline-offset:3px}
+
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--sun);color:var(--sun-ink)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--sun);z-index:21}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font:800 18px Unbounded,sans-serif;text-decoration:none}
+nav{display:flex;gap:20px;font-weight:600;font-size:15px}
+nav a{text-decoration:none}
+nav a:hover{text-decoration:underline}
+@media(max-width:600px){nav a:nth-child(n+3){display:none}}
+
+.hero{background:var(--sun);color:var(--sun-ink);padding:64px 0 90px;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center}
+.hero h1{font-size:clamp(34px,7vw,64px);font-weight:800}
+.hero p{font-size:19px;max-width:44ch;margin:20px 0 28px}
+.btn{display:inline-block;border:0;cursor:pointer;font:800 16px Manrope,sans-serif;padding:16px 28px;border-radius:999px;background:var(--sun-ink);color:#FFF1D6;text-decoration:none;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.alt{background:transparent;color:var(--sun-ink);box-shadow:inset 0 0 0 2px var(--sun-ink);margin-left:8px}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px;font-weight:600;font-size:14px}
+.badges span{background:rgba(43,15,46,.12);padding:6px 12px;border-radius:999px}
+.hero-art{display:flex;justify-content:center}
+.wrapi{width:min(320px,80%);animation:spin 1.2s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes spin{from{transform:rotate(-25deg) scale(.6);opacity:0}}
+@media(max-width:760px){.hero .wrap{grid-template-columns:1fr}.hero-art{order:-1}.wrapi{width:200px}}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px}
+.card:nth-child(2n){border-radius:22px 22px 22px 60px}
+.card:nth-child(2n+1){border-radius:22px 60px 22px 22px}
+.card .emo{font-size:38px}
+.card h3{font-size:18px;margin:10px 0 8px}
+.card p{margin:0 0 14px;color:var(--muted);font-size:15px}
+.price{font:800 20px Unbounded,sans-serif;color:var(--berry)}
+
+/* Конструктор — родзинка */
+.builder{background:var(--surface);border-block:1px solid var(--line)}
+.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+@media(max-width:800px){.bgrid{grid-template-columns:1fr}}
+fieldset{border:0;padding:0;margin:0 0 22px}
+legend{font:800 15px Manrope,sans-serif;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips input{position:absolute;opacity:0}
+.chips label{cursor:pointer;padding:10px 16px;border-radius:999px;border:2px solid var(--line);font-weight:600;font-size:15px;transition:.15s}
+.chips input:checked+label{background:var(--berry);border-color:var(--berry);color:#fff}
+.chips input:focus-visible+label{outline:3px solid var(--berry);outline-offset:2px}
+.stack{background:var(--bg);border:2px dashed var(--line);border-radius:28px;padding:28px;position:sticky;top:90px;text-align:center}
+.pita{width:170px;margin:0 auto;display:flex;flex-direction:column-reverse;gap:3px;min-height:120px}
+.layer{height:20px;border-radius:12px;animation:drop .35s ease both}
+@keyframes drop{from{transform:translateY(-30px);opacity:0}}
+.pita .base{height:26px;background:#E8B866;border-radius:6px 6px 40px 40px}
+.total{font:800 34px Unbounded,sans-serif;margin:18px 0 4px}
+.desc{color:var(--muted);font-size:14px;min-height:42px;margin:0 0 16px}
+.toast{margin-top:14px;font-weight:700;color:var(--mint);min-height:26px}
+
+.about{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.q{border-left:5px solid var(--sun);padding:6px 0 6px 18px}
+.q b{display:block;margin-top:6px;font-size:14px;color:var(--muted)}
+
+footer{background:var(--sun-ink);color:#FFF1D6;padding:64px 0 48px}
+footer h2{color:var(--sun)}
+.phones{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:12px}
+.phones a{font:800 clamp(22px,5vw,34px) Unbounded,sans-serif;text-decoration:none;color:#FFF1D6}
+.phones a:hover{color:var(--sun)}
+.phones small{display:block;font:600 14px Manrope,sans-serif;opacity:.7}
+.copy{margin-top:40px;font-size:14px;opacity:.6}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top">Шаурма Хаус</a>
+    <nav><a href="#menu">Меню</a><a href="#builder">Збери свою</a><a href="#about">Відгуки</a><a href="#contacts">Контакти</a></nav>
+  </div>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Шаурма, яку хочеться з’їсти двічі</h1>
+      <p>Свіжий лаваш, соковите м’ясо з рожна і соуси, які ми готуємо щоранку. Ваш текст про заклад.</p>
+      <a class="btn" href="#builder">Зібрати свою шаурму</a><a class="btn alt" href="#menu">Меню</a>
+      <div class="badges"><span>Готуємо за 7 хв</span><span>Доставка по місту</span><span>Щодня 10:00–23:00</span></div>
+    </div>
+    <div class="hero-art">
+      <svg class="wrapi" viewBox="0 0 200 200" aria-label="Шаурма" role="img">
+        <g transform="rotate(-30 100 100)">
+          <rect x="35" y="55" width="130" height="90" rx="45" fill="#E8B866"/>
+          <ellipse cx="55" cy="100" rx="26" ry="42" fill="#F6D08B"/>
+          <circle cx="55" cy="100" r="9" fill="#B3123B"/>
+          <circle cx="45" cy="86" r="6" fill="#2E9B6A"/>
+          <circle cx="48" cy="116" r="6" fill="#FFC93C"/>
+          <rect x="85" y="55" width="80" height="90" rx="40" fill="#D9A04A"/>
+          <path d="M100 70q20-8 50 0M100 100q25-8 55 0M100 130q20-8 45 0" stroke="#B3123B" stroke-width="5" fill="none" stroke-linecap="round" opacity=".65"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<section id="menu">
+  <div class="wrap">
+    <h2>Меню</h2>
+    <p class="lead">Ваш текст про меню. Усе готується при вас, з перевірених продуктів.</p>
+    <div class="grid">
+      <article class="card"><div class="emo">🌯</div><h3>Класична</h3><p>Курка, капуста, огірок, томат, часниковий соус.</p><div class="price">120 ₴</div></article>
+      <article class="card"><div class="emo">🔥</div><h3>Гостра</h3><p>Свинина, халапеньо, морква по-корейськи, чилі-соус.</p><div class="price">140 ₴</div></article>
+      <article class="card"><div class="emo">🧀</div><h3>Сирна</h3><p>Курка, подвійний сир, томат, вершковий соус.</p><div class="price">135 ₴</div></article>
+      <article class="card"><div class="emo">🥙</div><h3>Вегетаріанська</h3><p>Фалафель, хумус, свіжі овочі, тахіні.</p><div class="price">110 ₴</div></article>
+    </div>
+  </div>
+</section>
+
+<section class="builder" id="builder">
+  <div class="wrap">
+    <h2>Збери свою шаурму</h2>
+    <p class="lead">Обирай начинку — шаурма росте прямо перед очима, а ціна рахується сама.</p>
+    <div class="bgrid">
+      <div>
+        <fieldset><legend>М’ясо</legend>
+          <div class="chips" id="meat">
+            <input type="radio" name="meat" id="m1" value="Курка|50|#E0A458" checked><label for="m1">Курка</label>
+            <input type="radio" name="meat" id="m2" value="Свинина|60|#C77D4F"><label for="m2">Свинина</label>
+            <input type="radio" name="meat" id="m3" value="Мікс|65|#B8643C"><label for="m3">Мікс</label>
+            <input type="radio" name="meat" id="m4" value="Фалафель|45|#A9B05A"><label for="m4">Фалафель</label>
+          </div>
+        </fieldset>
+        <fieldset><legend>Розмір</legend>
+          <div class="chips">
+            <input type="radio" name="size" id="s1" value="Стандарт|1" checked><label for="s1">Стандарт</label>
+            <input type="radio" name="size" id="s2" value="XL|1.4"><label for="s2">XL +40%</label>
+          </div>
+        </fieldset>
+        <fieldset><legend>Додатки</legend>
+          <div class="chips">
+            <input type="checkbox" id="e1" value="Сир|15|#FFD65A"><label for="e1">Сир +15</label>
+            <input type="checkbox" id="e2" value="Халапеньо|10|#2E9B6A"><label for="e2">Халапеньо +10</label>
+            <input type="checkbox" id="e3" value="Фрі|20|#F2B84B"><label for="e3">Картопля фрі +20</label>
+            <input type="checkbox" id="e4" value="Соус|8|#B3123B"><label for="e4">Гострий соус +8</label>
+          </div>
+        </fieldset>
+      </div>
+      <div class="stack">
+        <div class="pita" id="pita" aria-hidden="true"></div>
+        <div class="total" id="total">0 ₴</div>
+        <p class="desc" id="desc"></p>
+        <button class="btn" id="order" type="button">Замовити</button>
+        <div class="toast" id="toast" role="status"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <h2>Що кажуть гості</h2>
+    <p class="lead">Ваш текст про заклад і команду.</p>
+    <div class="about">
+      <div class="q">«Ваш відгук клієнта. Найсмачніша шаурма в місті!»<b>Ім’я, гість</b></div>
+      <div class="q">«Ваш відгук клієнта. Швидко, гаряче, щедра порція.»<b>Ім’я, гість</b></div>
+      <div class="q">«Ваш відгук клієнта. Замовляю щотижня.»<b>Ім’я, гість</b></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="contacts">
+  <div class="wrap">
+    <h2>Замовляйте за номерами</h2>
+    <p>Ваша адреса: вул. Ваша, 1. Щодня з 10:00 до 23:00.</p>
+    <ul class="phones">
+      <li><a href="tel:+380000000000">+380 00 000 00 00</a><small>Замовлення та доставка</small></li>
+      <li><a href="tel:+380000000001">+380 00 000 00 01</a><small>Бронювання та кейтеринг</small></li>
+    </ul>
+    <div class="copy">© 2026 Шаурма Хаус. Ваш текст.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)};
+  var pita=$('#pita'),total=$('#total'),desc=$('#desc'),toast=$('#toast');
+  function calc(){
+    var meat=document.querySelector('input[name=meat]:checked').value.split('|');
+    var size=document.querySelector('input[name=size]:checked').value.split('|');
+    var extras=[].slice.call(document.querySelectorAll('.builder input[type=checkbox]:checked')).map(function(e){return e.value.split('|')});
+    var sum=(+meat[1]+55)*+size[1];
+    extras.forEach(function(e){sum+=+e[1]});
+    sum=Math.round(sum);
+    var layers=[['Лаваш','#E8B866',0],[meat[0],meat[2],1],['Овочі','#2E9B6A',1],['Соус','#F6EBD0',1]];
+    extras.forEach(function(e){layers.push([e[0],e[2],1])});
+    pita.innerHTML='';
+    layers.forEach(function(l,i){
+      var d=document.createElement('div');
+      d.className=i===0?'layer base':'layer';
+      if(i)d.style.background=l[1];
+      d.style.animationDelay=(i*.05)+'s';
+      pita.appendChild(d);
+    });
+    var top=document.createElement('div');top.className='layer base';top.style.transform='scaleY(-1)';pita.appendChild(top);
+    total.textContent=sum+' ₴';
+    desc.textContent=size[0]+': '+meat[0].toLowerCase()+(extras.length?' + '+extras.map(function(e){return e[0].toLowerCase()}).join(', '):'');
+    toast.textContent='';
+    return sum;
+  }
+  document.querySelectorAll('.builder input').forEach(function(i){i.addEventListener('change',calc)});
+  $('#order').addEventListener('click',function(){
+    var s=calc();
+    toast.textContent='Замовлення на '+s+' ₴ прийнято! Дзвоніть: +380 00 000 00 00';
+  });
+  calc();
+})();
+</script>
+</body>
+</html>
